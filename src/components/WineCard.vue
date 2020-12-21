@@ -1,20 +1,17 @@
 <template>
   <div class="wine--card">
     <header class="wine--card--header">
-      <h3 class="wine--name">Vinho</h3>
+      <h3 class="wine--name">{{ data.name }}</h3>
     </header>
     <section class="wine--content">
       <strong class="wine--key"> Ano </strong>
-      <span class="wine--value"> 2018 </span>
+      <span class="wine--value"> {{ data.year }} </span>
       <strong class="wine--key"> Descrição </strong>
       <span class="wine--value">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore dolor
-        est obcaecati delectus itaque mollitia laboriosam voluptate, libero
-        neque maiores nam animi incidunt consequatur excepturi dolorem, adipisci
-        officiis quisquam praesentium.
+        {{ data.description }}
       </span>
-       <strong class="wine--key"> Nota </strong>
-      <span class="wine--value"> 10 </span>
+      <strong class="wine--key"> Nota </strong>
+      <span class="wine--value"> {{data.grade}} </span>
     </section>
   </div>
 </template>
@@ -22,6 +19,7 @@
 <script>
 export default {
   name: "WineCard",
+  props: ["data"],
 };
 </script>
 
