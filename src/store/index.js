@@ -1,7 +1,7 @@
 import Vuex from "vuex";
 import Vue from "vue";
 import api from "../services/api";
-import { getToken, setToken } from "../services/auth";
+import { getToken, setToken,removeToken } from "../services/auth";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -65,6 +65,11 @@ const store = new Vuex.Store({
             commit('setUser', { user })
             commit('setToken', { token })
             commit('setLoading', { isLoading: false })
+        },
+        async logout({ commit }) {
+            removeToken()
+            commit('setToken',{ token:'' })
+            commit('setUser',{ user:{} })
         }
     }
 
