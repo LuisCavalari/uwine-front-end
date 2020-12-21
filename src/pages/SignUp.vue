@@ -24,17 +24,17 @@
 </template>
 
 <script>
-import InitialPageTemplate from "../components/InitialPageTemplate.vue";
+import InitialPageTemplate from '../components/InitialPageTemplate';
 
 export default {
   components: { InitialPageTemplate },
   data() {
-      return {
-          email: '',
-          password: '',
-          passwordConfirmation: '',
-      }
-  }
+    return {
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+    };
+  },
 };
 </script>
 

@@ -11,8 +11,8 @@
 
 <script>
 export default {
-    name: 'InitialPageTemplate'
-}
+  name: 'InitialPageTemplate',
+};
 </script>
 
 <style>

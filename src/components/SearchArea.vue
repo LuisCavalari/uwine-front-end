@@ -21,9 +21,10 @@
 </template>
 
 <script>
-import ArrowUp from "vue-material-design-icons/ArrowUp";
-import ArrowDown from "vue-material-design-icons/ArrowDown";
-import _ from "lodash";
+import ArrowUp from 'vue-material-design-icons/ArrowUp';
+import ArrowDown from 'vue-material-design-icons/ArrowDown';
+import _ from 'lodash';
+
 export default {
   components: {
     ArrowUp,
@@ -31,33 +32,38 @@ export default {
   },
   data() {
     return {
-      searchTerm: "",
-      orderBy: "",
+      searchTerm: '',
+      orderBy: '',
       desc: true,
       yearDesc: true,
       gradeDesc: true,
     };
   },
   methods: {
-    searchItem: _.debounce(async function () {
-        try {
-            const searchTerm = this.searchTerm;
-            const params = {
-            searchTerm,
-            direction: this.desc ? 'desc': 'asc',
-            orderBy: this.orderBy,
-            };
-            await this.$store.dispatch("getWineListByName", params);
-        } catch (error) {
-            console.log(error)
+    searchItem: _.debounce(async function getList() {
+      try {
+        const searchTerm = this.searchTerm;
+        const params = {
+          searchTerm,
+          direction: this.desc ? 'desc' : 'asc',
+          orderBy: this.orderBy,
+        };
+        await this.$store.dispatch('getWineListByName', params);
+      } catch (error) {
+        if (error.response) {
+          const errorMessage = error.response.data.message;
+          this.$toasted.global.defaultError({
+            msg: errorMessage,
+          });
         }
+      }
     }, 300),
     setOrderBy(param) {
       this.orderBy = param;
       const key = `${param}Desc`;
       this[key] = !this[key];
       this.desc = this[key];
-      this.searchItem()
+      this.searchItem();
     },
   },
 };

@@ -5,13 +5,13 @@
 
 <script>
 export default {
-    props: ['link'],
-    methods: {
-        loadPage() {
-            this.$store.dispatch('getWineList', this.link.url)
-        }
-    }
-}
+  props: ['link'],
+  methods: {
+    loadPage() {
+      this.$store.dispatch('getWineList', this.link.url);
+    },
+  },
+};
 </script>
 
 <style>
@@ -22,7 +22,7 @@ export default {
     border:1px solid #69306d;
     margin-right: 10px;
     cursor: pointer;
-    transition: all 0.15s linear;    
+    transition: all 0.15s linear;
 }
 .page--link:hover,.active {
     background-color:#69306d;

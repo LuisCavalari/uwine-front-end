@@ -6,7 +6,8 @@
 
 <script>
 export default {
-  name: "App",
+  name: 'App',
+  template: '',
 };
 </script>
 
@@ -27,6 +28,8 @@ body {
 }
 .link {
   width: 100%;
+  text-decoration: none;
+  color:inherit;
 }
 .input {
   height: 40px;

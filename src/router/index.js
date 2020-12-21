@@ -1,12 +1,14 @@
 import Vue from 'vue';
-import store from "../store";
 import Router from 'vue-router';
 import Login from '@/pages/Login';
 import SignUp from '@/pages/SignUp';
-import Dashboard from "@/pages/Dashboard";
+import Dashboard from '@/pages/Dashboard';
+import NewWine from '@/pages/NewWine';
+import store from '../store';
+
 Vue.use(Router);
 
-const router =  new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -15,34 +17,42 @@ const router =  new Router({
       component: Login,
     },
     {
-      path:'/signup',
+      path: '/signup',
       name: 'SignUp',
       component: SignUp,
     },
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component : Dashboard,
+      component: Dashboard,
       meta: {
-        requiredAuth :true,
-      }
-    }
+        requiredAuth: true,
+      },
+    },
+    {
+      path: '/new-wine',
+      name: 'Adicionar vinho',
+      component: NewWine,
+      meta: {
+        requiredAuth: true,
+      },
+    },
   ],
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = `${to.name} | UWine `
-  if(to.matched.some(record => record.meta.requiredAuth)) {
+  document.title = `${to.name} | UWine `;
+  if (to.matched.some(record => record.meta.requiredAuth)) {
     if (!store.getters.isAuthenticated) {
-      next({ 
-        path: '/', 
-      }) 
+      next({
+        path: '/',
+      });
     } else {
-      next()
+      next();
     }
   } else {
-    next()
+    next();
   }
-})
+});
 
-export default router
+export default router;

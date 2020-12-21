@@ -11,26 +11,26 @@
 </template>
 
 <script>
-import DashboardTemplate from "../components/DashboardTemplate.vue";
-import WineCard from "../components/WineCard";
-import PageLink from "../components/PageLink"
-import { mapState } from "vuex";
-import SearchArea from '../components/SearchArea.vue';
+import { mapState } from 'vuex';
+import DashboardTemplate from '../components/DashboardTemplate';
+import WineCard from '../components/WineCard';
+import PageLink from '../components/PageLink';
+import SearchArea from '../components/SearchArea';
 
 export default {
-  components: { DashboardTemplate, WineCard,PageLink,SearchArea },
-  computed: mapState(["wineList"]),
+  components: { DashboardTemplate, WineCard, PageLink, SearchArea },
+  computed: mapState(['wineList']),
   mounted() {
     try {
-      this.$store.dispatch("getWineList");
+      this.$store.dispatch('getWineList');
     } catch (error) {
-      const errorMessage = error.response.data.message;
+      const errorMessage = error.response ? error.response.data.message : '';
       this.$toasted.global.defaultError({ msg: errorMessage });
     }
   },
 };
 </script>
-    
+
 
 <style>
 .wine--list {

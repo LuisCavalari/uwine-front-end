@@ -2,27 +2,29 @@
   <div class="grid--area">
     <div class="sidebar">
       <ul class="sidebar--menu">
-        <li class="menu--item">
-          <menu-icon />
-          <span>Home</span>
-        </li>
+        <router-link class="link" to="/dashboard">
+          <li class="menu--item">
+            <menu-icon />
+            <span>Home</span>
+          </li>
+        </router-link >
+        <router-link class="link" to="/new-wine">
         <li class="menu--item">
           <plus-icon />
           <span>Adicionar Vinho</span>
         </li>
+         </router-link>
         <li class="menu--item logout">
           <logout />
           <span>Sair</span>
-
         </li>
       </ul>
     </div>
     <div class="header">
-      <h2>{{this.title}}</h2>
+      <h2>{{ this.title }}</h2>
       <div class="user--information">
-
-          <span class="user--name">{{user.name}}</span>
-          <avatar :size="36" />
+        <span class="user--name">{{ user.name }}</span>
+        <avatar :size="36" />
       </div>
     </div>
     <div class="content">
@@ -32,17 +34,19 @@
 </template>
 
 <script>
-import MenuIcon from "vue-material-design-icons/Home";
-import PlusIcon from "vue-material-design-icons/Plus";
-import Avatar from "vue-material-design-icons/AccountCircle";
-import Logout from "vue-material-design-icons/Logout";
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
+import MenuIcon from 'vue-material-design-icons/Home';
+import PlusIcon from 'vue-material-design-icons/Plus';
+import Avatar from 'vue-material-design-icons/AccountCircle';
+import Logout from 'vue-material-design-icons/Logout';
+
 export default {
-  name: "DashboardTemplate",
+  name: 'DashboardTemplate',
   computed: mapState(['user']),
   mounted() {
-      if(!this.$store.user)
-        this.$store.dispatch('getUser')
+    if (!this.$store.user) {
+      this.$store.dispatch('getUser');
+    }
   },
   components: {
     MenuIcon,
@@ -50,7 +54,7 @@ export default {
     Avatar,
     Logout,
   },
-  props: ['title']
+  props: ['title'],
 };
 </script>
 
@@ -107,18 +111,16 @@ export default {
   overflow-x: hidden;
 }
 .user--information {
-    margin-right: 15px;
-    display: flex;
-    align-items: center;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
 }
 .user--information .user--name {
-    margin-right: 18px;
+  margin-right: 18px;
 }
 .logout {
   position: absolute;
   bottom: 15px;
   right: 40%;
 }
-
-
 </style>
