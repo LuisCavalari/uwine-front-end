@@ -1,7 +1,7 @@
 import Vuex from "vuex";
 import Vue from "vue";
 import api from "../services/api";
-import { getToken,setToken } from "../services/auth";
+import { getToken, setToken } from "../services/auth";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -11,7 +11,7 @@ const store = new Vuex.Store({
         wineList: [],
         user: {},
     },
-    getters : {
+    getters: {
         isAuthenticated(state) {
             return !!state.token
         }
@@ -25,16 +25,31 @@ const store = new Vuex.Store({
             setToken(token)
         },
         setUser(state, { user }) {
-            state.user = user 
+            state.user = user
         },
         setWineList(state, { wineList }) {
             state.wineList = wineList
         }
     },
     actions: {
-        async getWineList({ commit }) {
-            const response = await api.get('/wines')
+        async getWineList({ commit }, url) {
+            let response
+            if (!url) {
+                response = await api.get('/wines')
+            } else {
+                response = await api({
+                    url,
+                    method: 'GET',
+                })
+            }
+
             commit('setWineList', { wineList: response.data })
+        },
+        async getWineListByName({ commit }, params) {
+            const reponse = await api.get('/wines',{
+                params
+            })
+            commit('setWineList', { wineList:reponse.data })
         },
         async getUser({ commit }) {
             const response = await api.get('/auth/me')
@@ -43,16 +58,16 @@ const store = new Vuex.Store({
             commit('setUser', { user })
         },
         async login({ commit }, loginData) {
-            commit('setLoading',{isLoading:true})
-            const response = await api.post('/auth/login',loginData)
+            commit('setLoading', { isLoading: true })
+            const response = await api.post('/auth/login', loginData)
             const user = response.data.user
             const token = response.data.access_token
-            commit('setUser',{user})
-            commit('setToken',{token})
-            commit('setLoading',{isLoading:false})
+            commit('setUser', { user })
+            commit('setToken', { token })
+            commit('setLoading', { isLoading: false })
         }
     }
 
-    
+
 })
 export default store;

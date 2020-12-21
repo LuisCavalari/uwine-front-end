@@ -7,9 +7,6 @@
 <script>
 export default {
   name: 'App',
-  created() {
-    
-  }
 };
 </script>
 
@@ -34,6 +31,7 @@ export default {
     height: 40px;
     width: 100%;
     padding: 10px;
+    outline: none;
   }
   .button {
     cursor: pointer;
