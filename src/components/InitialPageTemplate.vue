@@ -1,7 +1,7 @@
 <template>
   <div class="login--area">
       <div class="login--left">
-        <slot name="left"> </slot>
+        <slot></slot>
       </div>
       <div class="login--right">
           <img class="glass" src="../assets/glass.png" alt="">

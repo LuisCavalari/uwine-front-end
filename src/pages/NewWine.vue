@@ -1,6 +1,4 @@
 <template>
-  <dashboard-template title="Adicionar vinho">
-    <template>
       <form class="wine--form" @submit="addNewWine">
         <input type="text" v-model="name" class="input" placeholder="Nome do vinho" />
         <input type="text" v-model="year" class="input" placeholder="Ano" />
@@ -8,8 +6,6 @@
         <textarea placeholder="Descrição" v-model="description" ></textarea>
         <button type="submit" class="button">Adicionar</button>
       </form>
-    </template>
-  </dashboard-template>
 </template>
 
 <script>

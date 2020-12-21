@@ -1,17 +1,29 @@
 <template>
   <div id="app">
-    <router-view />
+    <dashboard-template v-if="this.$route.meta.dashboardLayout" :title="this.$route.name">
+      <router-view />
+    </dashboard-template>
+    <initial-page-template v-else>
+       <router-view />
+    </initial-page-template>
   </div>
 </template>
 
 <script>
+import DashboardTemplate from './components/DashboardTemplate';
+import InitialPageTemplate from './components/InitialPageTemplate';
+
 export default {
   name: 'App',
-  template: '',
+  components: {
+    DashboardTemplate,
+    InitialPageTemplate
+  }
 };
 </script>
 
-<style>
+
+    InitialPageTemplate DashboardTemplate<style>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 * {
   font-family: "Montserrat", sans-serif;
@@ -29,7 +41,7 @@ body {
 .link {
   width: 100%;
   text-decoration: none;
-  color:inherit;
+  color: inherit;
 }
 .input {
   height: 40px;

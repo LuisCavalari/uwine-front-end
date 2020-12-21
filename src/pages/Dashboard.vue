@@ -1,30 +1,34 @@
 <template>
-  <dashboard-template title="Dashboard">
+  <div>
     <search-area />
     <div class="wine--list">
       <wine-card v-for="wine in wineList.data" :key="wine.id" :data="wine" />
     </div>
     <div class="pages--area">
-      <page-link v-for="link in wineList.links" :link="link" :key="link.label" />
+      <page-link
+        v-for="link in wineList.links"
+        :link="link"
+        :key="link.label"
+      />
     </div>
-  </dashboard-template>
+  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import DashboardTemplate from '../components/DashboardTemplate';
-import WineCard from '../components/WineCard';
-import PageLink from '../components/PageLink';
-import SearchArea from '../components/SearchArea';
+import { mapState } from "vuex";
+import DashboardTemplate from "../components/DashboardTemplate";
+import WineCard from "../components/WineCard";
+import PageLink from "../components/PageLink";
+import SearchArea from "../components/SearchArea";
 
 export default {
   components: { DashboardTemplate, WineCard, PageLink, SearchArea },
-  computed: mapState(['wineList']),
+  computed: mapState(["wineList"]),
   mounted() {
     try {
-      this.$store.dispatch('getWineList');
+      this.$store.dispatch("getWineList");
     } catch (error) {
-      const errorMessage = error.response ? error.response.data.message : '';
+      const errorMessage = error.response ? error.response.data.message : "";
       this.$toasted.global.defaultError({ msg: errorMessage });
     }
   },
@@ -37,7 +41,7 @@ export default {
   margin-top: 18px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: minmax(350px,400px);
+  grid-template-rows: minmax(350px, 400px);
   gap: 30px;
   justify-content: center;
 }

@@ -1,41 +1,37 @@
 <template>
-  <initial-page-template>
-    <template v-slot:left>
-      <img class="logo" src="../assets/grasp.png" alt="grasp" />
-      <h2>UWine</h2>
-      <form class="login--form" @submit="doLogin">
-        <input v-model="email" class="input" placeholder="Email" type="text" />
-        <input
-          v-model="password"
-          class="input"
-          placeholder="Senha"
-          type="password"
-        />
-        <button type="submit" class="button login--button">Login</button>
-        <router-link class="link" to="SignUp">
-          <button class="button signup--button">Cadastro</button>
-        </router-link>
-      </form>
-    </template>
-  </initial-page-template>
+  <form class="login--form" @submit="doLogin">
+    <img class="logo" src="../assets/grasp.png" alt="grasp" />
+    <h2>UWine</h2>
+    <input v-model="email" class="input" placeholder="Email" type="text" />
+    <input
+      v-model="password"
+      class="input"
+      placeholder="Senha"
+      type="password"
+    />
+    <button type="submit" class="button login--button">Login</button>
+    <router-link class="link" to="SignUp">
+      <button class="button signup--button">Cadastro</button>
+    </router-link>
+  </form>
 </template>
 
 <script>
-import InitialPageTemplate from '@/components/InitialPageTemplate';
+import InitialPageTemplate from "@/components/InitialPageTemplate";
 
 export default {
   components: { InitialPageTemplate },
-  name: 'Login',
+  name: "Login",
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     };
   },
   methods: {
     async doLogin($event) {
       $event.preventDefault();
-      this.$store.commit('setLoading', true);
+      this.$store.commit("setLoading", true);
       try {
         const email = this.email;
         const password = this.password;
@@ -43,14 +39,14 @@ export default {
           email,
           password,
         };
-        await this.$store.dispatch('login', user);
-        this.$router.push('dashboard');
+        await this.$store.dispatch("login", user);
+        this.$router.push("dashboard");
       } catch (error) {
         let errorMessage;
         if (error.response) {
           errorMessage = error.response.data.message;
         }
-        this.$toasted.global.defaultError({ msg: errorMessage || '' });
+        this.$toasted.global.defaultError({ msg: errorMessage || "" });
       }
     },
   },
@@ -61,6 +57,11 @@ export default {
 .login--form {
   max-width: 400px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 .login--form .input,
 .login--form .button {

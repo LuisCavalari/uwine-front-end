@@ -27,6 +27,7 @@ const router = new Router({
       component: Dashboard,
       meta: {
         requiredAuth: true,
+        dashboardLayout: true,
       },
     },
     {
@@ -35,6 +36,7 @@ const router = new Router({
       component: NewWine,
       meta: {
         requiredAuth: true,
+        dashboardLayout: true,
       },
     },
   ],
