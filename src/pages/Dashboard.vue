@@ -1,7 +1,12 @@
 <template>
   <dashboard-template title="Dashboard">
     <div class="wine--list">
-      <wine-card v-for="wine in wineList" :key="wine.id" :data="wine" />
+      <wine-card v-for="wine in wineList.data" :key="wine.id" :data="wine" />
+    </div>
+    <div class="pages--area">
+      <span v-for="link in wineList.links" :key="link.label" v-html="link.label" >
+        
+      </span>
     </div>
   </dashboard-template>
 </template>
@@ -13,10 +18,15 @@ import { mapState } from "vuex";
 
 export default {
   components: { DashboardTemplate, WineCard },
-  computed: mapState(['wineList']),
+  computed: mapState(["wineList"]),
   mounted() {
-    this.$store.dispatch('getWineList')
-  }
+    try {
+      this.$store.dispatch("getWineList");
+    } catch (error) {
+      const errorMessage = error.response.data.message;
+      this.$toasted.global.defaultError({ msg: errorMessage });
+    }
+  },
 };
 </script>
     

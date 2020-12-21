@@ -40,6 +40,10 @@ import { mapState } from "vuex";
 export default {
   name: "DashboardTemplate",
   computed: mapState(['user']),
+  mounted() {
+      if(!this.$store.user)
+        this.$store.dispatch('getUser')
+  },
   components: {
     MenuIcon,
     PlusIcon,

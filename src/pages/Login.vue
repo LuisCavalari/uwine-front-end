@@ -42,11 +42,8 @@ export default {
           email,
           password,
         };
-        const response = await this.$http.post('/auth/login',user)
-        
-        this.$store.commit('setLoading', false)
-        this.$store.commit('setUser',{ user:response.data})
-        this.$router.push('dashboard')
+        await this.$store.dispatch('login',user)
+        this.$router.push('Dashboard')
       } catch (error) {
         const errorMessage = error.response.data.message
         this.$toasted.global.defaultError({msg:errorMessage})
