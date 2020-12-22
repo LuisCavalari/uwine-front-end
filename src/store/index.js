@@ -47,15 +47,19 @@ const store = new Vuex.Store({
       commit('setWineList', { wineList: response.data });
     },
     async getWineListByName({ commit }, params) {
+      commit('setLoading', { isLoading: true });
       const reponse = await api.get('/wines', {
         params,
       });
       commit('setWineList', { wineList: reponse.data });
+      commit('setLoading', { isLoading: false });
     },
     async getUser({ commit }) {
+      commit('setLoading', { isLoading: true });
       const response = await api.get('/auth/me');
       const user = response.data.user;
       commit('setUser', { user });
+      commit('setLoading', { isLoading: false });
     },
     async login({ commit }, loginData) {
       commit('setLoading', { isLoading: true });
