@@ -27,7 +27,7 @@ import SearchArea from '../components/SearchArea';
 
 export default {
   components: { DashboardTemplate, WineCard, PageLink, SearchArea },
-  computed: mapState(['wineList','loading']),
+  computed: mapState(['wineList', 'loading']),
   async beforeCreate() {
     try {
       await this.$store.dispatch('getWineList');
@@ -38,11 +38,10 @@ export default {
   },
   methods: {
     verifyListLength(list) {
-      if(list)
-        return list.length > 0
-      return false
-    }
-  }
+      if (list) { return list.length > 0; }
+      return false;
+    },
+  },
 };
 </script>
 
@@ -80,11 +79,11 @@ export default {
 @media only screen and (max-width: 970px) {
  .wine--list {
    grid-template-columns: repeat(2,1fr);
- }  
+ }
 }
 @media only screen and (max-width: 624px) {
  .wine--list {
    grid-template-columns: 1fr;
- }  
+ }
 }
 </style>

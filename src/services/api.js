@@ -2,8 +2,6 @@ import axios from 'axios';
 import { getToken } from './auth';
 import router from '../router';
 import store from '../store';
-import dotenv from "dotenv";
-dotenv.config()
 
 const api = axios.create({
   baseURL: 'https://nameless-escarpment-55393.herokuapp.com/api',

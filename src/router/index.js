@@ -5,6 +5,7 @@ import SignUp from '@/pages/SignUp';
 import Dashboard from '@/pages/Dashboard';
 import NewWine from '@/pages/NewWine';
 import EditWine from '@/pages/EditWine';
+import NotFound from '@/pages/404';
 import store from '../store';
 
 Vue.use(Router);
@@ -16,11 +17,17 @@ const router = new Router({
       path: '/',
       name: 'Login',
       component: Login,
+      meta: {
+        loginLayout: true,
+      },
     },
     {
       path: '/signup',
-      name: 'SignUp',
+      name: 'Cadastro',
       component: SignUp,
+      meta: {
+        loginLayout: true,
+      },
     },
     {
       path: '/dashboard',
@@ -48,6 +55,11 @@ const router = new Router({
         requiredAuth: true,
         dashboardLayout: true,
       },
+    },
+    {
+      path: '*',
+      name: 'Pagina não encontrada',
+      component: NotFound,
     },
 
   ],

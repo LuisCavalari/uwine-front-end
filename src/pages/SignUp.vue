@@ -34,23 +34,23 @@
 </template>
 
 <script>
-import displayValidationErrors from "../helper/displayValidationErrors";
-import InitialPageTemplate from "../components/InitialPageTemplate";
+import displayValidationErrors from '../helper/displayValidationErrors';
+import InitialPageTemplate from '../components/InitialPageTemplate';
 
 export default {
   components: { InitialPageTemplate },
   data() {
     return {
-      email: "",
+      email: '',
       name: '',
-      password: "",
-      passwordConfirmation: "",
+      password: '',
+      passwordConfirmation: '',
     };
   },
   methods: {
     async registerUser(event) {
       event.preventDefault();
-      let user
+      let user;
       if (this.validatePassword(this.password, this.passwordConfirmation)) {
         user = {
           email: this.email,
@@ -60,17 +60,16 @@ export default {
         };
       } else {
         this.$toasted.global.defaultError({
-          msg: "As duas senhas não são iguais",
+          msg: 'As duas senhas não são iguais',
         });
-        return
+        return;
       }
       try {
-        await this.$store.dispatch("registerUser", user);
-        this.$router.push('/dashboard')
+        await this.$store.dispatch('registerUser', user);
+        this.$router.push('/dashboard');
       } catch (error) {
-        console.log(error)
         this.$store.commit('setLoading', { isLoading: false });
-        const status = error.response ? error.response.status: null;
+        const status = error.response ? error.response.status : null;
         if (status === 422) {
           const errors = error.response.data.errors;
           displayValidationErrors(errors, this.$toasted);

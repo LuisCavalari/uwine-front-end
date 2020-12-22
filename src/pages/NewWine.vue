@@ -22,20 +22,20 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import DashboardTemplate from "../components/DashboardTemplate";
-import displayValidationErrors from "../helper/displayValidationErrors";
+import { mapState } from 'vuex';
+import DashboardTemplate from '../components/DashboardTemplate';
+import displayValidationErrors from '../helper/displayValidationErrors';
 
 export default {
-  name: "NewWine",
-  computed: mapState(["loading"]),
+  name: 'NewWine',
+  computed: mapState(['loading']),
   components: { DashboardTemplate },
   data() {
     return {
-      name: "",
-      year: "",
-      grade: "",
-      description: "",
+      name: '',
+      year: '',
+      grade: '',
+      description: '',
     };
   },
   methods: {
@@ -48,13 +48,13 @@ export default {
         grade: this.grade,
       };
       try {
-        const response = await this.$store.dispatch("addNewWine", wineData);
+        const response = await this.$store.dispatch('addNewWine', wineData);
         this.$toasted.global.defaultSuccess({
           msg: response.data.message,
         });
         this.clearField();
       } catch (error) {
-        this.$store.commit("setLoading", { isLoading: false });
+        this.$store.commit('setLoading', { isLoading: false });
         const status = error.response.status;
         if (status === 422) {
           const errors = error.response.data.errors;
@@ -63,10 +63,10 @@ export default {
       }
     },
     clearField() {
-      this.name = "";
-      this.year = "";
-      this.grade = "";
-      this.description = "";
+      this.name = '';
+      this.year = '';
+      this.grade = '';
+      this.description = '';
     },
   },
 };

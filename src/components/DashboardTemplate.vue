@@ -40,28 +40,29 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import MenuIcon from "vue-material-design-icons/Home";
-import PlusIcon from "vue-material-design-icons/Plus";
-import Avatar from "vue-material-design-icons/AccountCircle";
-import Logout from "vue-material-design-icons/Logout";
-import MenuHamburguer from "vue-material-design-icons/Menu";
-import CloseIcon from "vue-material-design-icons/Close";
+import { mapState } from 'vuex';
+import MenuIcon from 'vue-material-design-icons/Home';
+import PlusIcon from 'vue-material-design-icons/Plus';
+import Avatar from 'vue-material-design-icons/AccountCircle';
+import Logout from 'vue-material-design-icons/Logout';
+import MenuHamburguer from 'vue-material-design-icons/Menu';
+import CloseIcon from 'vue-material-design-icons/Close';
+
 export default {
-  name: "DashboardTemplate",
-  computed: mapState(["user", "menuVisible"]),
+  name: 'DashboardTemplate',
+  computed: mapState(['user', 'menuVisible']),
   mounted() {
     if (!this.$store.user) {
-      this.$store.dispatch("getUser");
+      this.$store.dispatch('getUser');
     }
   },
   methods: {
     logout() {
-      this.$store.dispatch("logout");
-      this.$router.push("/");
+      this.$store.dispatch('logout');
+      this.$router.push('/');
     },
     handleMenu() {
-      this.$store.dispatch("changeMenuState");
+      this.$store.dispatch('changeMenuState');
     },
   },
   components: {
@@ -72,7 +73,7 @@ export default {
     Logout,
     MenuHamburguer,
   },
-  props: ["title"],
+  props: ['title'],
 };
 </script>
 

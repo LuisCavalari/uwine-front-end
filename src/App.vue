@@ -3,9 +3,10 @@
     <dashboard-template v-if="this.$route.meta.dashboardLayout" :title="this.$route.name">
       <router-view />
     </dashboard-template>
-    <initial-page-template v-else>
+    <initial-page-template v-else-if="this.$route.meta.loginLayout">
        <router-view />
     </initial-page-template>
+    <router-view v-else />
   </div>
 </template>
 
