@@ -95,6 +95,13 @@ const store = new Vuex.Store({
       commit('setLoading', { isLoading: false });
       return response;
     },
+    async registerUser({ commit }, userData) {
+      commit('setLoading', { isLoading: true });
+      const response = await api.post('/user',userData)
+      commit('setToken', { token: response.data.access_token })
+      commit('setUser', { user:response.data.user })
+      commit('setLoading', { isLoading: false });
+    }
   },
 
 

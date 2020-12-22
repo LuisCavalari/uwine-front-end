@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="content--area">
     <search-area />
-    <div class="wine--list">
+    <div class="wine--list" v-if="!loading">
       <wine-card v-for="wine in wineList.data" :key="wine.id" :data="wine" />
+      <span v-if="wineList.data.length <= 0">Parece que você ainda não registrou nenhum vinho</span>
     </div>
-    <div class="pages--area">
+    <div v-else class="loading">
+      <img src="../assets/loading.gif" alt="">
+    </div>
+    <div class="pages--area" v-if="wineList.data.length > 0">
       <page-link
         v-for="link in wineList.links"
         :link="link"
@@ -23,7 +27,7 @@ import SearchArea from '../components/SearchArea';
 
 export default {
   components: { DashboardTemplate, WineCard, PageLink, SearchArea },
-  computed: mapState(['wineList']),
+  computed: mapState(['wineList','loading']),
   async created() {
     try {
       await this.$store.dispatch('getWineList');
@@ -37,6 +41,9 @@ export default {
 
 
 <style>
+.content--area {
+  height: 80%;
+}
 .wine--list {
   margin-top: 18px;
   display: grid;
@@ -51,5 +58,13 @@ export default {
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
+}
+.loading {
+  margin-top:15px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

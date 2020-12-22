@@ -14,7 +14,7 @@
           <span>Adicionar Vinho</span>
         </li>
          </router-link>
-        <li class="menu--item logout">
+        <li class="menu--item logout" @click="logout">
           <logout />
           <span>Sair</span>
         </li>
@@ -46,6 +46,12 @@ export default {
   mounted() {
     if (!this.$store.user) {
       this.$store.dispatch('getUser');
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+      this.$router.push('/')
     }
   },
   components: {
