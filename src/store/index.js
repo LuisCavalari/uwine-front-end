@@ -83,6 +83,18 @@ const store = new Vuex.Store({
       commit('setLoading', { isLoading: false });
       return response;
     },
+    async getWineById({ commit }, id) {
+      commit('setLoading', { isLoading: true });
+      const response = await api.get(`/wines/${id}`);
+      commit('setLoading', { isLoading: false });
+      return response;
+    },
+    async updateWine({ commit }, data) {
+      commit('setLoading', { isLoading: true });
+      const response = await api.put(`/wines/${data.id}`, data.updatedWine);
+      commit('setLoading', { isLoading: false });
+      return response;
+    },
   },
 
 

@@ -1,24 +1,41 @@
 <template>
-  <dashboard-template title="Adicionar vinho">
-    <template>
-      <form class="wine--form" @submit="addNewWine">
-        <input type="text" v-model="name" class="input" placeholder="Nome do vinho" />
-        <input type="text" v-model="year" class="input" placeholder="Ano" />
-        <input type="text" v-model="grade" placeholder="Nota" class="input" />
-        <textarea placeholder="Descrição" v-model="description" ></textarea>
-        <button type="submit" class="button">Adicionar</button>
-      </form>
-    </template>
-  </dashboard-template>
+  <form class="wine--form" @submit="updateWine">
+    <input
+      type="text"
+      v-model="name"
+      class="input"
+      placeholder="Nome do vinho"
+    />
+    <input type="text" v-model="year" class="input" placeholder="Ano" />
+    <input type="text" v-model="grade" placeholder="Nota" class="input" />
+    <textarea placeholder="Descrição" v-model="description"></textarea>
+    <button type="submit" :disabled="loading" class="button">Adicionar</button>
+  </form>
 </template>
 
 <script>
-import DashboardTemplate from '../components/DashboardTemplate';
+import { mapState } from 'vuex';
 import displayValidationErrors from '../helper/displayValidationErrors';
 
 export default {
-  name: 'NewWine',
-  components: { DashboardTemplate },
+  name: 'EditWine',
+  computed: mapState(['loading']),
+  async mounted() {
+    try {
+      const id = this.$route.params.id;
+      const response = await this.$store.dispatch('getWineById', id);
+      this.fillFields(response.data.data);
+    } catch (error) {
+      let errorMessage = '';
+      if (error.response) {
+        errorMessage = error.response.data.message;
+      }
+      this.$toasted.global.defaultError({
+        msg: errorMessage,
+      });
+      this.$router.push('/dashboard');
+    }
+  },
   data() {
     return {
       name: '',
@@ -28,33 +45,42 @@ export default {
     };
   },
   methods: {
-    async addNewWine(event) {
+    fillFields(fields) {
+      this.name = fields.name;
+      this.grade = fields.grade;
+      this.year = fields.year;
+      this.description = fields.description;
+    },
+    async updateWine(event) {
       event.preventDefault();
-      const wineData = {
-        name: this.name,
-        year: this.year,
-        description: this.description,
-        grade: this.grade,
-      };
       try {
-        const response = await this.$store.dispatch('addNewWine', wineData);
+        const id = this.$route.params.id;
+        const updatedWine = {
+          name: this.name,
+          year: this.year,
+          grade: this.grade,
+          description: this.description,
+        };
+        const data = {
+          id,
+          updatedWine,
+        };
+        const response = await this.$store.dispatch('updateWine', data);
         this.$toasted.global.defaultSuccess({
           msg: response.data.message,
         });
-        this.clearField();
+        this.$router.push('/dashboard');
       } catch (error) {
+        this.$store.commit('setLoading', { isLoading: false });
         const status = error.response.status;
         if (status === 422) {
           const errors = error.response.data.errors;
           displayValidationErrors(errors, this.$toasted);
+        } else {
+          const errorMessage = error.response ? error.response.data.message : '';
+          this.$toasted.global.defaultError({ msg: errorMessage });
         }
       }
-    },
-    clearField() {
-      this.name = '';
-      this.year = '';
-      this.grade = '';
-      this.description = '';
     },
   },
 };

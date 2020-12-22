@@ -17,8 +17,8 @@ export default {
   name: 'App',
   components: {
     DashboardTemplate,
-    InitialPageTemplate
-  }
+    InitialPageTemplate,
+  },
 };
 </script>
 

@@ -9,7 +9,7 @@
       placeholder="Senha"
       type="password"
     />
-    <button type="submit" class="button login--button">Login</button>
+    <button type="submit" :disabled="this.loading" class="button login--button">Login</button>
     <router-link class="link" to="SignUp">
       <button class="button signup--button">Cadastro</button>
     </router-link>
@@ -17,36 +17,38 @@
 </template>
 
 <script>
-import InitialPageTemplate from "@/components/InitialPageTemplate";
+import { mapState } from 'vuex';
+import InitialPageTemplate from '@/components/InitialPageTemplate';
 
 export default {
   components: { InitialPageTemplate },
-  name: "Login",
+  computed: mapState(['loading']),
+  name: 'Login',
   data() {
     return {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     };
   },
   methods: {
     async doLogin($event) {
       $event.preventDefault();
-      this.$store.commit("setLoading", true);
       try {
-        const email = this.email;
-        const password = this.password;
+        const email = this.email.trim();
+        const password = this.password.trim();
         const user = {
           email,
           password,
         };
-        await this.$store.dispatch("login", user);
-        this.$router.push("dashboard");
+        await this.$store.dispatch('login', user);
+        this.$router.push('dashboard');
       } catch (error) {
+        this.$store.commit('setLoading', { isLoading: false });
         let errorMessage;
         if (error.response) {
           errorMessage = error.response.data.message;
         }
-        this.$toasted.global.defaultError({ msg: errorMessage || "" });
+        this.$toasted.global.defaultError({ msg: errorMessage || '' });
       }
     },
   },

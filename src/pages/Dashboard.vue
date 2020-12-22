@@ -15,20 +15,20 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import DashboardTemplate from "../components/DashboardTemplate";
-import WineCard from "../components/WineCard";
-import PageLink from "../components/PageLink";
-import SearchArea from "../components/SearchArea";
+import { mapState } from 'vuex';
+import DashboardTemplate from '../components/DashboardTemplate';
+import WineCard from '../components/WineCard';
+import PageLink from '../components/PageLink';
+import SearchArea from '../components/SearchArea';
 
 export default {
   components: { DashboardTemplate, WineCard, PageLink, SearchArea },
-  computed: mapState(["wineList"]),
-  mounted() {
+  computed: mapState(['wineList']),
+  async created() {
     try {
-      this.$store.dispatch("getWineList");
+      await this.$store.dispatch('getWineList');
     } catch (error) {
-      const errorMessage = error.response ? error.response.data.message : "";
+      const errorMessage = error.response ? error.response.data.message : '';
       this.$toasted.global.defaultError({ msg: errorMessage });
     }
   },

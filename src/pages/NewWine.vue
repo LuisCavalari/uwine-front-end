@@ -4,16 +4,18 @@
         <input type="text" v-model="year" class="input" placeholder="Ano" />
         <input type="text" v-model="grade" placeholder="Nota" class="input" />
         <textarea placeholder="Descrição" v-model="description" ></textarea>
-        <button type="submit" class="button">Adicionar</button>
+        <button type="submit" :disabled="this.loading" class="button">Adicionar</button>
       </form>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import DashboardTemplate from '../components/DashboardTemplate';
 import displayValidationErrors from '../helper/displayValidationErrors';
 
 export default {
   name: 'NewWine',
+  computed: mapState(['loading']),
   components: { DashboardTemplate },
   data() {
     return {
@@ -39,6 +41,7 @@ export default {
         });
         this.clearField();
       } catch (error) {
+        this.$store.commit('setLoading', { isLoading: false });
         const status = error.response.status;
         if (status === 422) {
           const errors = error.response.data.errors;

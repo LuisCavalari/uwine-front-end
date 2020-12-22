@@ -14,7 +14,9 @@
       <span class="wine--value"> {{ data.grade }} </span>
     </section>
     <div class="button--group">
-      <button class="button active" >Editar</button>
+      <router-link class="link" :to="`/edit-wine/${data.id}`">
+        <button class="button active" >Editar</button>
+      </router-link>
       <button class="button" @click="deleteWine(data.id)">Excluir</button>
     </div>
   </div>
