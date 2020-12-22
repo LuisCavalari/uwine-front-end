@@ -29,16 +29,21 @@
       type="password"
       @keydown.space.prevent
     />
-    <button type="submit" class="button finish--button">Finalizar</button>
+    <button type="submit" class="button finish--button">
+       <img v-if="loading" class="loading--button" src="../assets/loading.gif" alt="">
+       <span v-else>Cadastrar</span>
+    </button>
   </form>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import displayValidationErrors from '../helper/displayValidationErrors';
 import InitialPageTemplate from '../components/InitialPageTemplate';
 
 export default {
   components: { InitialPageTemplate },
+  computed: mapState(['loading']),
   data() {
     return {
       email: '',

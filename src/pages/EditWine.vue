@@ -9,7 +9,10 @@
     <input type="text" v-model="year" class="input" placeholder="Ano" />
     <input type="text" v-model="grade" placeholder="Nota" class="input" />
     <textarea placeholder="Descrição" v-model="description"></textarea>
-    <button type="submit" :disabled="loading" class="button">Adicionar</button>
+    <button type="submit" :disabled="loading" class="button">
+      <img v-if="loading" class="loading--button" src="../assets/loading.gif" alt="">
+       <span v-else>Atualizar</span>
+    </button>
   </form>
 </template>
 
