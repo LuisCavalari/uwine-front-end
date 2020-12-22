@@ -1,28 +1,41 @@
 <template>
-      <form class="wine--form" @submit="addNewWine">
-        <input type="text" v-model="name" class="input" placeholder="Nome do vinho" />
-        <input type="text" v-model="year" class="input" placeholder="Ano" />
-        <input type="text" v-model="grade" placeholder="Nota" class="input" />
-        <textarea placeholder="Descrição" v-model="description" ></textarea>
-        <button type="submit" :disabled="this.loading" class="button">Adicionar</button>
-      </form>
+  <form class="wine--form" @submit="addNewWine">
+    <input
+      type="text"
+      v-model="name"
+      class="input"
+      placeholder="Nome do vinho"
+    />
+    <input type="text" v-model="year" class="input" placeholder="Ano" />
+    <input type="text" v-model="grade" placeholder="Nota" class="input" />
+    <textarea placeholder="Descrição" v-model="description"></textarea>
+    <button type="submit" :disabled="this.loading" class="button">
+      <img
+        v-if="loading"
+        class="loading--button"
+        src="../assets/loading.gif"
+        alt=""
+      />
+      <span v-else>Adicionar</span>
+    </button>
+  </form>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import DashboardTemplate from '../components/DashboardTemplate';
-import displayValidationErrors from '../helper/displayValidationErrors';
+import { mapState } from "vuex";
+import DashboardTemplate from "../components/DashboardTemplate";
+import displayValidationErrors from "../helper/displayValidationErrors";
 
 export default {
-  name: 'NewWine',
-  computed: mapState(['loading']),
+  name: "NewWine",
+  computed: mapState(["loading"]),
   components: { DashboardTemplate },
   data() {
     return {
-      name: '',
-      year: '',
-      grade: '',
-      description: '',
+      name: "",
+      year: "",
+      grade: "",
+      description: "",
     };
   },
   methods: {
@@ -35,13 +48,13 @@ export default {
         grade: this.grade,
       };
       try {
-        const response = await this.$store.dispatch('addNewWine', wineData);
+        const response = await this.$store.dispatch("addNewWine", wineData);
         this.$toasted.global.defaultSuccess({
           msg: response.data.message,
         });
         this.clearField();
       } catch (error) {
-        this.$store.commit('setLoading', { isLoading: false });
+        this.$store.commit("setLoading", { isLoading: false });
         const status = error.response.status;
         if (status === 422) {
           const errors = error.response.data.errors;
@@ -50,10 +63,10 @@ export default {
       }
     },
     clearField() {
-      this.name = '';
-      this.year = '';
-      this.grade = '';
-      this.description = '';
+      this.name = "";
+      this.year = "";
+      this.grade = "";
+      this.description = "";
     },
   },
 };

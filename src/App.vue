@@ -60,6 +60,9 @@ body {
   outline: none;
   border: none;
   height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: all 0.2s linear;
 }
 .button:hover {
