@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config()
 
 const api = axios.create({
-  baseURL: 'https://nameless-escarpment-55393.herokuapp.com',
+  baseURL: 'https://nameless-escarpment-55393.herokuapp.com/api',
 });
 
 api.interceptors.request.use(async (config) => {
