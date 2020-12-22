@@ -3,12 +3,12 @@
     <search-area />
     <div class="wine--list" v-if="!loading">
       <wine-card v-for="wine in wineList.data" :key="wine.id" :data="wine" />
-      <span v-if="wineList.data.length <= 0">Parece que você ainda não registrou nenhum vinho</span>
+      <span v-if="!verifyListLength(wineList.data)">Nenhum vinho encontrado</span>
     </div>
     <div v-else class="loading">
-      <img src="../assets/loading.gif" alt="">
+      <img src="../assets/loading-filled.gif" alt="loading">
     </div>
-    <div class="pages--area" v-if="wineList.data.length > 0">
+    <div class="pages--area" v-if="verifyListLength(wineList.data)">
       <page-link
         v-for="link in wineList.links"
         :link="link"
@@ -36,6 +36,13 @@ export default {
       this.$toasted.global.defaultError({ msg: errorMessage });
     }
   },
+  methods: {
+    verifyListLength(list) {
+      if(list)
+        return list.length > 0
+      return false
+    }
+  }
 };
 </script>
 
@@ -57,7 +64,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
+  padding: 15px 0;
 }
 .loading {
   margin-top:15px;
@@ -66,5 +73,18 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.loading img {
+  max-width: 120px;
+}
+@media only screen and (max-width: 970px) {
+ .wine--list {
+   grid-template-columns: repeat(2,1fr);
+ }  
+}
+@media only screen and (max-width: 624px) {
+ .wine--list {
+   grid-template-columns: 1fr;
+ }  
 }
 </style>

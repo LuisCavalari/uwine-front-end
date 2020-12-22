@@ -11,6 +11,7 @@ const store = new Vuex.Store({
     token: getToken() || '',
     wineList: [],
     user: {},
+    menuVisible: false
   },
   getters: {
     isAuthenticated(state) {
@@ -31,20 +32,28 @@ const store = new Vuex.Store({
     setWineList(state, { wineList }) {
       state.wineList = wineList;
     },
+    setMenuState(state) {
+      state.menuVisible = !state.menuVisible
+    }
   },
   actions: {
+    changeMenuState({ commit }) {
+      commit('setMenuState')
+    },
     async getWineList({ commit }, url) {
-      let response;
-      if (!url) {
-        response = await api.get('/wines');
-      } else {
-        response = await api({
-          url,
-          method: 'GET',
-        });
-      }
-
+      commit('setLoading', { isLoading: true });
+      const response = await api.get('/wines');
       commit('setWineList', { wineList: response.data });
+      commit('setLoading', { isLoading: false });
+    },
+    async getWineListPerPage({ commit },url) {
+      commit('setLoading', { isLoading: true });
+      const response = await api({
+        url,
+        method: 'GET',
+      });
+      commit('setWineList', { wineList: response.data });
+      commit('setLoading', { isLoading: false });
     },
     async getWineListByName({ commit }, params) {
       commit('setLoading', { isLoading: true });
@@ -74,6 +83,7 @@ const store = new Vuex.Store({
       removeToken();
       commit('setToken', { token: '' });
       commit('setUser', { user: {} });
+      commit('setLoading', { isLoading: false });
     },
     async addNewWine({ commit }, wineData) {
       commit('setLoading', { isLoading: true });
@@ -84,7 +94,6 @@ const store = new Vuex.Store({
     async deleteWine({ commit }, id) {
       commit('setLoading', { isLoading: true });
       const response = await api.delete(`/wines/${id}`);
-      commit('setLoading', { isLoading: false });
       return response;
     },
     async getWineById({ commit }, id) {

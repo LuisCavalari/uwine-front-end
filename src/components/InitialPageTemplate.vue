@@ -41,6 +41,11 @@ export default {
   max-width: 540px;
   width: 100%;
 }
+@media only screen and (max-width: 848px) {
+  .login--right {
+    display: none;
+  }
+}
 
 
 </style>

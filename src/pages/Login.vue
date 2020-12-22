@@ -9,9 +9,14 @@
       placeholder="Senha"
       type="password"
     />
-    <button type="submit" :disabled="this.loading" class="button login--button">Login</button>
+    <button type="submit" :disabled="this.loading" class="button login--button">
+       <img v-if="loading" class="loading--button" src="../assets/loading.gif" alt="">
+       <span v-else>Login</span>
+    </button>
     <router-link class="link" to="SignUp">
-      <button class="button signup--button">Cadastro</button>
+      <button class="button signup--button">
+        Cadastro
+      </button>
     </router-link>
   </form>
 </template>
@@ -76,6 +81,9 @@ export default {
   font-weight: bold;
   font-size: 18px;
   margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #69306d;
 }
 

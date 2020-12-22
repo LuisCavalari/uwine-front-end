@@ -3,7 +3,7 @@
     <input
       type="text"
       class="input"
-      placeholder="Digite o nome do vinho que deseja"
+      placeholder="Nome do vinho"
       v-model="searchTerm"
       @input="searchItem"
     />
@@ -89,5 +89,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media only screen and (max-width: 624px) {
+  .search--area {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .search--area .button,.search--area .input {
+    margin-right: 0;
+    margin-top:10px;
+  }
 }
 </style>

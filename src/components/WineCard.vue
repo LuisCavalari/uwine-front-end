@@ -87,6 +87,7 @@ section.wine--content {
 }
 .wine--value {
   color: #666;
+  overflow-wrap: break-word;
 }
 .wine--key,
 .wine--value {
@@ -100,4 +101,5 @@ section.wine--content {
   border-color: #69306d !important;
   color:#69306d !important;
 }
+
 </style>

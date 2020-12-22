@@ -35,6 +35,9 @@ html,
 body {
   height: 100vh;
 }
+.loading--button {
+  max-width: 60px;
+}
 #app {
   height: 100%;
 }

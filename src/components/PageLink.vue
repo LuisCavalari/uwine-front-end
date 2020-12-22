@@ -8,7 +8,7 @@ export default {
   props: ['link'],
   methods: {
     loadPage() {
-      this.$store.dispatch('getWineList', this.link.url);
+      this.$store.dispatch('getWineListPerPage', this.link.url);
     },
   },
 };

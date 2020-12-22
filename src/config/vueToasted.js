@@ -5,7 +5,7 @@ Vue.use(VueToasted, {
   iconPack: 'fontawesome',
   position: 'top-right',
   theme: 'toasted-primary',
-  duration: 5000,
+  duration: 10000,
 });
 
 Vue.toasted.register(
