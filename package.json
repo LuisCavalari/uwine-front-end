@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "dotenv": "^8.2.0",
     "lodash": "^4.17.20",
     "vue": "^2.5.2",
     "vue-material-design-icons": "^4.11.0",

@@ -28,7 +28,7 @@ import SearchArea from '../components/SearchArea';
 export default {
   components: { DashboardTemplate, WineCard, PageLink, SearchArea },
   computed: mapState(['wineList','loading']),
-  async created() {
+  async beforeCreate() {
     try {
       await this.$store.dispatch('getWineList');
     } catch (error) {
